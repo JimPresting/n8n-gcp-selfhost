@@ -308,6 +308,7 @@ This schedule runs the script **every Sunday at 3:00 AM**.
  The **container restarts** with the old data preserved.  
  The **cronjob automates updates** every Sunday at 3 AM.  
 
+Now, please make sure that when setting up your private n8n account, you watch out for the correct path the next time you use it. It should be **`.../home`** so that it doesn’t ask you to sign up again, as there is no login page from the signup screen. It may seem trivial, but if you don’t notice it, you might think your data is lost.
 
 
 Hope this helps you set up and automate your n8n instance! 🚀 For more on how to effectively set up workflows that truly help you or your business be more efficient, check out our YouTube channel: [StardawnAI](https://www.youtube.com/@StardawnAI). Thank you! 😊
