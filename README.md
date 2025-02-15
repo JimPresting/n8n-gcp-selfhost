@@ -22,10 +22,12 @@ Guide on how to fully self-host n8n in a GCP project with up to no monthly costs
 Now we set up the instance where N8N will run.
 
 1. Make sure your project is selected
-2. Click on VM Instances ![image](https://github.com/user-attachments/assets/ae8c5668-1b99-4bc8-b9bf-0bcd2716c759)
-3. It might ask you to enable the Compute Engine API first (if you have just set up the account). Click **"Enable"** to proceed. ![image](https://github.com/user-attachments/assets/c5da1c83-f2cb-4c34-91c5-7e4cf8dbca0b)
+2. Click on VM Instances
+![image](https://github.com/user-attachments/assets/ae8c5668-1b99-4bc8-b9bf-0bcd2716c759)
+3. It might ask you to enable the Compute Engine API first (if you have just set up the account). Click **"Enable"** to proceed.
+![image](https://github.com/user-attachments/assets/c5da1c83-f2cb-4c34-91c5-7e4cf8dbca0b)
 4. Click on Create Instance
-5. 5. In the configuration, you are generally free to set it up as you like. However, to host this instance for free, you need to check Google's requirements for the free-tier cloud setup: [Google Cloud Free Tier](https://cloud.google.com/free/docs/free-cloud-features#compute).  
+5. In the configuration, you are generally free to set it up as you like. However, to host this instance for free, you need to check Google's requirements for the free-tier cloud setup: [Google Cloud Free Tier](https://cloud.google.com/free/docs/free-cloud-features#compute).  
 
 As of now, the free-tier configuration is limited to:  
 - **1 non-preemptible e2-micro VM instance** per month in one of the following US regions:  
@@ -37,10 +39,12 @@ As of now, the free-tier configuration is limited to:
 
 6. So, click on **E2** and select the **Preset**. ![image](https://github.com/user-attachments/assets/d550b1e6-01e7-4025-9a6f-2a8cf2f5aa00)
 Select e2-micro
-7. Click on **OS and Storage**, then select **Change**. ![image](https://github.com/user-attachments/assets/60433d75-23bf-42c1-97cd-61ed870cf1d4)
+7. Click on **OS and Storage**, then select **Change**.
+![image](https://github.com/user-attachments/assets/60433d75-23bf-42c1-97cd-61ed870cf1d4)
 8. Change Size (GB) to 30 and the Boot disk type to Standard Persistent Disk as per the guidelines.
 9. It will show you a monthly estimate, as running multiple instances 24/7 would incur these costs for what you selected. However, since you have only one project, you will stay within the free-tier limits, and the only potential costs will be for bandwidth, depending on your workflows.
-10. Give the instance a name (it doesn’t really matter—just make sure it's written without spaces) and click **Create**. Wait a minite until the Status says that it has compelted the setup. If it takes longer, refresh the page. ![image](https://github.com/user-attachments/assets/06328659-e37a-4350-8790-5113790a1a4a)
+10. Give the instance a name (it doesn’t really matter—just make sure it's written without spaces) and click **Create**. Wait a minite until the Status says that it has compelted the setup. If it takes longer, refresh the page.
+![image](https://github.com/user-attachments/assets/06328659-e37a-4350-8790-5113790a1a4a)
 
 
 # Step 3: Setting up Docker
