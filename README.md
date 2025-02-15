@@ -182,7 +182,7 @@ Here, we need to configure the firewall settings to allow HTTP and HTTPS traffic
     
 Adjust the subdomain and domain.
 ```bash
-sudo certbot --nginx -d myn8n.stardawnai.com
+sudo certbot --nginx -d myn8n.your-domain.com
 ```
 Enter an Email and select Y
 Second one you can enter Y or N doesn't matter. It should work. If an error occurs it's propably due to the Firewall settings not being set up correctly. 
