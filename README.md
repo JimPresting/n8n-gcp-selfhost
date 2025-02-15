@@ -187,7 +187,8 @@ sudo certbot --nginx -d myn8n.stardawnai.com
 Enter an Email and select Y
 Second one you can enter Y or N doesn't matter. It should work. If an error occurs it's propably due to the Firewall settings not being set up correctly. 
 
-![Screenshot 2025-02-15 131657](https://github.com/user-attachments/assets/984cd5fa-a541-4066-b2ac-17424a10fc94)
+![image](https://github.com/user-attachments/assets/bfb16d7e-be0d-455f-b18b-25c6bbf08df2)
+
 
 When entering your domain (with the subdomain) in the browser, it should look like this:
 ![image](https://github.com/user-attachments/assets/84372133-c1d3-4df6-a5db-94871cb97943)
