@@ -301,15 +301,67 @@ This schedule runs the script **every Sunday at 3:00 AM**.
   "Source": "/home/mygoogleaccount/.n8n",
   "Destination": "/home/node/.n8n",
   ```
-
----
-
 ### **Summary**
  A **backup** of `.n8n` is created before each update.  
  The **container restarts** with the old data preserved.  
- The **cronjob automates updates** every Sunday at 3 AM.  
+ The **cronjob automates updates** every Sunday at 3 AM. 
+---
+
+
+
+
+
+
+## Note
+
+### **Fixing n8n 502 Bad Gateway after GCP VM Restart (if you changed your CPU/configs)**  
+
+#### **1️⃣ Fix Permissions**  
+After restarting the VM, n8n couldn't access its config due to permission issues which leads to a 502 BAD GATEWAY. Fix it with:  
+```bash
+sudo chown -R 1000:1000 ~/.n8n
+sudo chmod -R 777 ~/.n8n
+```
+
+#### **2️⃣ Restart n8n Container**  
+```bash
+sudo docker stop n8n
+sudo docker rm n8n
+sudo docker run -d --restart unless-stopped -it \
+--name n8n \
+-p 5678:5678 \
+-e N8N_HOST="myn8n.my-domain.com" \
+-e WEBHOOK_TUNNEL_URL="https://myn8n.my-domain.com/" \
+-e WEBHOOK_URL="https://myn8n.my-domain.com/" \
+-v ~/.n8n:/home/node/.n8n \
+n8nio/n8n
+```
+
+#### **3 Verify n8n is Running**  
+```bash
+sudo docker ps
+```
+- `docker ps` should show `Up X minutes`  
+- `curl` should return `HTTP/1.1 200 OK` or `403 Forbidden`  
+
+
+#### **4 Final Check**  
+Open in browser:  
+```
+https://myn8n.my-domain.com
+```
+![Screenshot 2025-02-18 104846](https://github.com/user-attachments/assets/d5d8dba5-fee6-4cf1-972e-65a37c5144d8)
+
+
+
+ 
 
 Now, please make sure that when setting up your private n8n account, you watch out for the correct path the next time you use it. It should be **`.../home`** so that it doesn’t ask you to sign up again, as there is no login page from the signup screen. It may seem trivial, but if you don’t notice it, you might think your data is lost.
 
 
 Hope this helps you set up and automate your n8n instance! 🚀 For more on how to effectively set up workflows that truly help you or your business be more efficient, check out our YouTube channel: [StardawnAI](https://www.youtube.com/@StardawnAI). Thank you! 😊
+
+
+
+
+
