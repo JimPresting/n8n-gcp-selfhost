@@ -114,7 +114,7 @@ We are using a subdomain, it should look like this:
     -v ~/.n8n:/root/.n8n \
     n8nio/n8n
     ```
-It now downloads the latest **n8n** image. Since this is the first installation, it obviously can’t find **n8n:latest** in your directory, but that’s not a problem.
+It now downloads the latest **n8n** image. Since this is the first installation, it obviously can’t find **n8n:latest** in your directory, so that’s not a problem.
 ![image](https://github.com/user-attachments/assets/dd85386c-8807-43af-b25a-77ab298a659e)
 
 
