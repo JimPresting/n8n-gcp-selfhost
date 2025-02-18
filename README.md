@@ -356,6 +356,24 @@ https://myn8n.my-domain.com
 ![Screenshot 2025-02-18 104846](https://github.com/user-attachments/assets/d5d8dba5-fee6-4cf1-972e-65a37c5144d8)
 
 
+```bash
+crontab -e
+```
+Add the following line at the end to fix n8n folder permissions on startup:  
+
+```bash
+@reboot sudo chown -R 1000:1000 ~/.n8n && sudo chmod -R 777 ~/.n8n
+```
+
+This ensures **n8n always has full access** to its config directory after a reboot. 
+
+![Screenshot 2025-02-18 111733](https://github.com/user-attachments/assets/2c31e3d6-8734-4d2a-9992-01cd11d34042)
+
+
+
+
+
+
 
  
 
