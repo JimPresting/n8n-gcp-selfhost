@@ -207,6 +207,9 @@ johndoe@myvmn8n
 ![image](https://github.com/user-attachments/assets/9d6aeada-7047-4b45-8b0c-1b86548e795a)
 
 
+After the updates execute it might show you errors: "Cannot GET /home   "   dont worry just dont let you browser auto-complete the URL. Enter subdomain.yourdomain.com  then it will redirect you to the correct path.
+
+
 
 ### **Auto-Update Script for n8n**  
 
