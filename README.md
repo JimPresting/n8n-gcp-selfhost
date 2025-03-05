@@ -311,6 +311,25 @@ This schedule runs the script **every Sunday at 3:00 AM**.
 ---
 Now, please make sure that when setting up your private n8n account, you watch out for the correct path the next time you use it. It should be **`.../home`** so that it doesn’t ask you to sign up again, as there is no login page from the signup screen. It may seem trivial, but if you don’t notice it, you might think your data is lost.
 
+If the Cronjob does not work and it does not auto update enter:
+```bash
+sudo touch /var/log/update_n8n.log
+sudo chmod 666 /var/log/update_n8n.log
+```
+this hands the log file the permissions it may need.
+
+
+and change the Cronjob to: 
+```bash
+0 3 * * 0 /bin/bash /home/stand_4_business/update_n8n.sh >> /var/log/update_n8n.log 2>&1
+```
+the "/bin/bash" tells him that he should execute it like that. Normally just entering the path to the file should work. 
+
+At worst case you can simply open the shell and enter it manually so it updates whenever you need it:
+ ```bash
+sudo bash /home/mygoogleaccount/update_n8n.sh
+```
+
 
 Hope this helps you set up and automate your n8n instance! 🚀 For more on how to effectively set up workflows that truly help you or your business be more efficient, check out our YouTube channel: [StardawnAI](https://www.youtube.com/@StardawnAI). Thank you! 😊
 
