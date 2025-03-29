@@ -266,8 +266,8 @@ Select nano
 
 Add this line (you can remove the comments before):  
 ```bash0
-3 * * 0 /bin/bash /home/stand_4_business/update_n8n.sh >> /var/log/update_n8n.log 2>&1
-30 3 * * 0 find /home/stand_4_business/.n8n-backup* -maxdepth 0 -type d | sort | head -n -2 | xargs rm -rf
+3 * * 0 /bin/bash /home/mygoogleaccount/update_n8n.sh >> /var/log/update_n8n.log 2>&1
+30 3 * * 0 find /home/mygoogleaccount/.n8n-backup* -maxdepth 0 -type d | sort | head -n -2 | xargs rm -rf
 @reboot sudo chown -R 1000:1000 ~/.n8n && sudo chmod -R 777 ~/.n8n
 ```
 Save and exit.
@@ -282,11 +282,11 @@ Save and exit.
 This schedule runs the script **every Sunday at 3:00 AM**.
 
 
-Regarding the Update file deletion:
+Regarding the Update file deletion (-maxdepth 0 -type d | sort | head -n -2 | xargs rm -rf):
 
-* `find /home/stand_4_business/.n8n-backup* -maxdepth 0 -type d`
+* `find /home/mygoogleaccount/.n8n-backup* -maxdepth 0 -type d`
    * `find` is the command to search for files
-   * `/home/stand_4_business/.n8n-backup*` is the search pattern - it finds all directories that start with ".n8n-backup"
+   * `/home/mygoogleaccount/.n8n-backup*` is the search pattern - it finds all directories that start with ".n8n-backup"
    * `-maxdepth 0` means that only the directly specified directories are searched, not in subdirectories
    * `-type d` finds only directories, not regular files
 * `| sort`
