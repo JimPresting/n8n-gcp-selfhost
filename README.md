@@ -265,8 +265,10 @@ Select nano
 
 
 Add this line (you can remove the comments before):  
-```bash
-0 3 * * 0 /home/mygoogleaccount/update_n8n.sh >> /var/log/update_n8n.log 2>&1
+```bash0
+3 * * 0 /bin/bash /home/stand_4_business/update_n8n.sh >> /var/log/update_n8n.log 2>&1
+30 3 * * 0 find /home/stand_4_business/.n8n-backup* -maxdepth 0 -type d | sort | head -n -2 | xargs rm -rf
+@reboot sudo chown -R 1000:1000 ~/.n8n && sudo chmod -R 777 ~/.n8n
 ```
 Save and exit.
 
@@ -278,6 +280,30 @@ Save and exit.
 - **`0`** → Day of the week (**0 = Sunday**, 1 = Monday, ..., 6 = Saturday)  
 
 This schedule runs the script **every Sunday at 3:00 AM**.
+
+
+Regarding the Update file deletion:
+
+* `find /home/stand_4_business/.n8n-backup* -maxdepth 0 -type d`
+   * `find` is the command to search for files
+   * `/home/stand_4_business/.n8n-backup*` is the search pattern - it finds all directories that start with ".n8n-backup"
+   * `-maxdepth 0` means that only the directly specified directories are searched, not in subdirectories
+   * `-type d` finds only directories, not regular files
+* `| sort`
+   * The pipe (`|`) forwards the output of find to sort
+   * `sort` arranges the list alphabetically, which for your backup names with dates is also chronological
+   * e.g., ".n8n-backup-2025-02-15..." comes before ".n8n-backup-2025-03-09..."
+* `| head -n -2`
+   * The pipe forwards the sorted list to head
+   * `head -n -2` takes all entries EXCEPT the last two
+   * These last two are the newest backups (because of the previous sorting)
+* `| xargs rm -rf`
+   * The pipe forwards the directory names to be deleted to xargs
+   * `xargs rm -rf` executes the command `rm -rf` for each directory name
+   * `rm -rf` deletes directories and all their contents recursively
+
+
+
 
 ---
 
