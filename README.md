@@ -106,13 +106,18 @@ We are using a subdomain, it should look like this:
 
     ```bash
     sudo docker run -d --restart unless-stopped -it \
-    --name n8n \
-    -p 5678:5678 \
-    -e N8N_HOST="myn8n.your-domain.com" \
-    -e WEBHOOK_TUNNEL_URL="https://myn8n.your-domain.com/" \
-    -e WEBHOOK_URL="https://myn8n.your-domain.com/" \
-    -v ~/.n8n:/root/.n8n \
-    n8nio/n8n
+      --name n8n \
+      -p 5678:5678 \
+      -e N8N_HOST="myn8n.your-domain.com" \
+      -e WEBHOOK_TUNNEL_URL="https://myn8n.your-domain.com/" \
+      -e WEBHOOK_URL="https://myn8n.your-domain.com/" \
+      -e N8N_ENABLE_RAW_EXECUTION="true" \
+      -e NODE_FUNCTION_ALLOW_BUILTIN="crypto" \
+      -e NODE_FUNCTION_ALLOW_EXTERNAL="" \
+      -e N8N_PUSH_BACKEND=websocket \
+      -v /home/mygoogleaccount/.n8n:/home/node/.n8n \
+      n8nio/n8n
+
     ```
 It now downloads the latest **n8n** image. Since this is the first installation, it obviously can’t find **n8n:latest** in your directory, so that’s not a problem.
 ![image](https://github.com/user-attachments/assets/dd85386c-8807-43af-b25a-77ab298a659e)
@@ -224,12 +229,12 @@ nano /home/mygoogleaccount/update_n8n.sh
 BACKUP_DATE=$(date +'%Y-%m-%d_%H-%M-%S')
 cp -r /home/mygoogleaccount/.n8n /home/mygoogleaccount/.n8n-backup-$BACKUP_DATE
 
-# Pull latest n8n version
-sudo docker pull n8nio/n8n:latest
-
 # Stop and remove old container
 sudo docker stop n8n
 sudo docker rm n8n
+
+# Pull latest n8n version
+sudo docker pull n8nio/n8n:latest
 
 # Start new container with correct volume
 sudo docker run -d --restart unless-stopped -it \
@@ -238,6 +243,10 @@ sudo docker run -d --restart unless-stopped -it \
   -e N8N_HOST="myn8n.your-domain.com" \
   -e WEBHOOK_TUNNEL_URL="https://myn8n.your-domain.com/" \
   -e WEBHOOK_URL="https://myn8n.your-domain.com/" \
+  -e N8N_ENABLE_RAW_EXECUTION="true" \
+  -e NODE_FUNCTION_ALLOW_BUILTIN="crypto" \ # adding Javascript Package Crypto just to show how the packages would be added
+  -e NODE_FUNCTION_ALLOW_EXTERNAL="" \ # needed for external 
+  -e N8N_PUSH_BACKEND=websocket \
   -v /home/mygoogleaccount/.n8n:/home/node/.n8n \
   n8nio/n8n
 
