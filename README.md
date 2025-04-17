@@ -108,16 +108,15 @@ We are using a subdomain, it should look like this:
     sudo docker run -d --restart unless-stopped -it \
       --name n8n \
       -p 5678:5678 \
-      -e N8N_HOST="myn8n.your-domain.com" \
-      -e WEBHOOK_TUNNEL_URL="https://myn8n.your-domain.com/" \
-      -e WEBHOOK_URL="https://myn8n.your-domain.com/" \
+      -e N8N_HOST="your-subdomain.your-domain.com" \
+      -e WEBHOOK_TUNNEL_URL="https://your-subdomain.your-domain.com/" \
+      -e WEBHOOK_URL="https://your-subdomain.your-domain.com/" \
       -e N8N_ENABLE_RAW_EXECUTION="true" \
       -e NODE_FUNCTION_ALLOW_BUILTIN="crypto" \
       -e NODE_FUNCTION_ALLOW_EXTERNAL="" \
       -e N8N_PUSH_BACKEND=websocket \
-      -v /home/mygoogleaccount/.n8n:/home/node/.n8n \
+      -v /home/your-google-account/.n8n:/home/node/.n8n \
       n8nio/n8n
-
     ```
 It now downloads the latest **n8n** image. Since this is the first installation, it obviously can’t find **n8n:latest** in your directory, so that’s not a problem.
 ![image](https://github.com/user-attachments/assets/dd85386c-8807-43af-b25a-77ab298a659e)
@@ -148,16 +147,34 @@ Paste the following content (replace with your actual domain and subdomain):
 
 ```nginx
 server {
-    listen 80;
-    server_name myn8n.my-domain.com;
-
+    server_name your-subdomain.your-domain.com;
     location / {
         proxy_pass http://localhost:5678;
+        proxy_http_version 1.1;
+        chunked_transfer_encoding off;
+        proxy_buffering off;
+        proxy_cache off;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto https;
+        proxy_read_timeout 86400;
     }
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/your-subdomain.your-domain.com/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/your-subdomain.your-domain.com/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+}
+server {
+    if ($host = your-subdomain.your-domain.com) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+    listen 80;
+    server_name your-subdomain.your-domain.com;
+    return 404; # managed by Certbot
 }
 ```
 Save with **Ctrl + O**, **Enter**, then exit with **Ctrl + X**.  
