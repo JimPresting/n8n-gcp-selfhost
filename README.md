@@ -284,16 +284,17 @@ chmod +x /home/mygoogleaccount/update_n8n.sh
 #### **3. Set Up a Weekly Cronjob (Sunday at 3 AM)**  
 Open the crontab:  
 ```bash
-crontab -e
+sudo crontab -e
 ```
+(to be 100% sure open both the "sudo crontab -e" and the "crontab -e" and enter the same commands twice)
 Select nano
 ![image](https://github.com/user-attachments/assets/bd9c300d-eacb-4b79-a1ee-471c85e301cd)
 
 
 Add this line (you can remove the comments before):  
 ```bash0
-3 * * 0 /bin/bash /home/mygoogleaccount/update_n8n.sh >> /var/log/update_n8n.log 2>&1
-30 3 * * 0 find /home/mygoogleaccount/.n8n-backup* -maxdepth 0 -type d | sort | head -n -2 | xargs rm -rf
+0 3 * * 0 /bin/bash /home/mygoogleaccount/update_n8n.sh >> /var/log/update_n8n.log 2>&1
+30 3 * * 0 sudo find /home/mygoogleaccount/.n8n-backup* -maxdepth 0 -type d | sort | head -n -2 | sudo xargs rm -rf
 @reboot sudo chown -R 1000:1000 ~/.n8n && sudo chmod -R 777 ~/.n8n
 ```
 Save and exit.
