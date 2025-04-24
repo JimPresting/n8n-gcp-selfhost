@@ -115,6 +115,7 @@ We are using a subdomain, it should look like this:
       -e NODE_FUNCTION_ALLOW_BUILTIN="crypto" \
       -e NODE_FUNCTION_ALLOW_EXTERNAL="" \
       -e N8N_PUSH_BACKEND=websocket \
+      #-e N8N_DEFAULT_BINARY_DATA_MODE="filesystem" \   # Needed when e.g. trying to upload Youtube Videos
       -v /home/your-google-account/.n8n:/home/node/.n8n \
       n8nio/n8n
     ```
