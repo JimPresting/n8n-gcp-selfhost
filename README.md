@@ -190,6 +190,52 @@ sudo systemctl restart nginx
 ```
 
 
+
+If the `sudo nginx -t` test fails at this stage, it's because the Nginx configuration includes lines related to Certbot's SSL setup which hasn't run yet. You need to temporarily comment out these lines as shown below, run the test again, restart Nginx, and then proceed with Certbot.
+
+```nginx
+server {
+    server_name oraclen8n.stardawnai.com;
+
+    location / {
+        proxy_pass http://localhost:5678;
+        proxy_http_version 1.1;
+        chunked_transfer_encoding off;
+        proxy_buffering off;
+        proxy_cache off;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_read_timeout 86400;
+    }
+
+    # These sections are managed by Certbot and need to be commented out for the initial Nginx test
+    #listen 443 ssl; # managed by Certbot
+    #ssl_certificate /etc/letsencrypt/live/oraclen8n.stardawnai.com/fullchain.pem; # managed by Certbot
+    #ssl_certificate_key /etc/letsencrypt/live/oraclen8n.stardawnai.com/privkey.pem; # managed by Certbot
+    #include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    #ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+}
+
+server {
+    # This redirect is managed by Certbot and needs to be commented out for the initial Nginx test
+    #if ($host = oraclen8n.stardawnai.com) { # Your subdomain here
+    #    return 301 https://$host$request_uri;
+    #} # managed by Certbot
+
+    listen 80;
+    server_name oraclen8n.stardawnai.com; # Your subdomain here
+    #return 404; # managed by Certbot - Also comment this out
+}
+```
+
+
+
+
+
 ## Step 3.4: Setting up SSL with Certbot
 
 Certbot will obtain and install an SSL certificate from Let's Encrypt.
