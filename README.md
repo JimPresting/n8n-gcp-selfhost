@@ -195,7 +195,7 @@ If the `sudo nginx -t` test fails at this stage, it's because the Nginx configur
 
 ```nginx
 server {
-    server_name oraclen8n.stardawnai.com;
+    server_name your-subdomain.your-domain.com; # Replace with your subdomain and domain
 
     location / {
         proxy_pass http://localhost:5678;
@@ -214,24 +214,23 @@ server {
 
     # These sections are managed by Certbot and need to be commented out for the initial Nginx test
     #listen 443 ssl; # managed by Certbot
-    #ssl_certificate /etc/letsencrypt/live/oraclen8n.stardawnai.com/fullchain.pem; # managed by Certbot
-    #ssl_certificate_key /etc/letsencrypt/live/oraclen8n.stardawnai.com/privkey.pem; # managed by Certbot
+    #ssl_certificate /etc/letsencrypt/live/your-subdomain.your-domain.com/fullchain.pem; # managed by Certbot
+    #ssl_certificate_key /etc/letsencrypt/live/your-subdomain.your-domain.com/privkey.pem; # managed by Certbot
     #include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     #ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 }
 
 server {
     # This redirect is managed by Certbot and needs to be commented out for the initial Nginx test
-    #if ($host = oraclen8n.stardawnai.com) { # Your subdomain here
+    #if ($host = your-subdomain.your-domain.com) { # Replace with your subdomain and domain
     #    return 301 https://$host$request_uri;
     #} # managed by Certbot
 
     listen 80;
-    server_name oraclen8n.stardawnai.com; # Your subdomain here
+    server_name your-subdomain.your-domain.com; # Replace with your subdomain and domain
     #return 404; # managed by Certbot - Also comment this out
 }
 ```
-
 
 
 
